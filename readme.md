@@ -14,19 +14,27 @@ Because the ESP8266 lacks native hardware Bluetooth or multi-channel ADCs, this 
 
 The ESP-12E pins must be strictly routed to the MCP3204 control registers. All digital input switches leverage physical $10\text{k}\Omega$ pull-down resistors.
 
-+------------------+          +-------------------+
-| ESP8266 (ESP12E) |          |  MCP3204 (ADC)    |
-|                  |          |                   |
-|     GPIO14 (CLK) |--------->| CLK               |
-|    GPIO12 (MISO) |<---------| DOUT              |
-|    GPIO13 (MOSI) |--------->| DIN               |
-|      GPIO15 (CS) |--------->| CS                |
-+------------------+          +-------------------+
-|   |   |   |
-CH0 CH1 CH2 CH3
-|   |   |   |
-[Left X/Y] [Right X/Y]
+## Hardware Interconnect Protocol
 
+The ESP-12E pins must be strictly routed to the MCP3204 control registers. All digital input switches leverage physical 10kΩ pull-down resistors.
+
+```text
+  +-----------------------+              +-----------------------+
+  |   ESP8266 (ESP12E)    |              |     MCP3204 (ADC)     |
+  |                       |              |                       |
+  |      GPIO14 (HSPI_CLK)|------------->| CLK (Pin 11)          |
+  |     GPIO12 (HSPI_MISO)|<-------------| DOUT (Pin 12)         |
+  |     GPIO13 (HSPI_MOSI)|------------->| DIN (Pin 13)          |
+  |       GPIO15 (HSPI_CS)|------------->| CS/SHDN (Pin 14)      |
+  +-----------------------+              +-----------------------+
+                                           |      |      |      |
+                                          CH0    CH1    CH2    CH3
+                                         (Pin1) (Pin2) (Pin3) (Pin4)
+                                           |      |      |      |
+                                           +------+      +------+
+                                              |             |
+                                        [Left Stick]  [Right Stick]
+                                          X / Y          X / Y
 
 ## SPI Bus Packet Structure
 
