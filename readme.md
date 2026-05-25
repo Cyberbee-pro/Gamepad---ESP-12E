@@ -18,7 +18,8 @@ The ESP-12E pins must be strictly routed to the MCP3204 control registers. All d
 
 The ESP-12E pins must be strictly routed to the MCP3204 control registers. All digital input switches leverage physical 10kΩ pull-down resistors.
 
-```text
+```
+text
   +-----------------------+              +-----------------------+
   |   ESP8266 (ESP12E)    |              |     MCP3204 (ADC)     |
   |                       |              |                       |
@@ -35,7 +36,7 @@ The ESP-12E pins must be strictly routed to the MCP3204 control registers. All d
                                               |             |
                                         [Left Stick]  [Right Stick]
                                           X / Y          X / Y
-
+```
 ## SPI Bus Packet Structure
 
 To parse a single analog channel, the firmware pulls the `CS` line LOW and clocks a 3-byte data structure across the SPI bus:
